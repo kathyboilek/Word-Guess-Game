@@ -20,19 +20,23 @@ Psuedo Code for game:
     else proceed with game
  If true
     Alert the user
-    Add one point to win
+    Increment by 1 after each iteration
+    Continue running while win is still less than 11
     Check to see:
         Number of guesses remaining
         Letters already guessed
  If false 
     Alert the user
-    Add one point to loss
+    Increment by 1 after each iteration
+    Continue running while loss is still less than 11
     Check to see:
         Number of guesses remaining
         Letters already guessed
- If the win is equal to the length of the word, tell the user they won
- If the loss is greater than the number of underscores, tell the user they lost
-    Loop to next randomly selected word
+ If the win is equal to the length of the word, 
+    Tell the user they won
+ If the loss is greater than the number of underscores, 
+    Tell the user they lost
+ Loop to next randomly selected word
 
 
 
