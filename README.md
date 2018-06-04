@@ -25,6 +25,7 @@ Psuedo Code for game:
     Check to see:
         Number of guesses remaining
         Letters already guessed
+        Then replace dashes with letters
  If false 
     Alert the user
     Increment by 1 after each iteration
