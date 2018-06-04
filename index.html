@@ -1,80 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
     <title>Word-Guess-Game</title>
-    <!-- Style Sheets -->
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/javascript/game.js"></script>
 </head>
 
 <body>
     <div class="container">
         <!--  header -->
-        <nav class="navbar navbar-default">
-            <h1>TCM's 10 Must See Movies</h1>
-        </nav>
+        <header>
+        <h1>TCM's 10 Must See Movies</h1>
+        </header>
     </div>
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p id="rules">
-                    Press Any Letter to Start.
-                    <br> Category : <span class="category">10 Must See Movies</span>
-                    <br><span id="warningMessage"></span>
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-7">
-                <div class="row ">
-                    <div class="col-md-12">
-                        <div class="col-md-5 col-sm-4">
-                            <div id="movie-img-holder">
-                                <img src="assets/images/" alt="image" height="150" width="190" id="movie-img">
-                            </div>
-                        </div>
-                        <div class="col-md-7 col-sm-8 margin-top-20 ">
-                            <div id="loadingMessage"></div>
-                            <div id="winLose">
-                                <div>Wins :
-                                    <sapn id="winCount"></span>
-                                </div>
-                                <div>Losses : <span id="loseCount"></span></div>
-                            </div>
-                            <div>Number of Lives Left : <span id="lives">10</span></div>
-                            <div id="gameWord"><b>Word : &nbsp;&nbsp;<span id="word"></span></b></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- letter button -->
-            <div class="col-md-5">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div id="letterBtn"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <footer>
-                    &copy; 2018
-                </footer>
-            </div>
-        </div>
-    </div>
-</body>
 
+    <script type="text/javascript">
+
+    // VARIABLES
+
+    // The array of movie names for the game.
+    var movies = ["King Kong",
+        "Sunset Boulevard",
+        "The Searchers",
+        "Dr Strangelove",
+        "The Graduate",
+        "Jaws",
+        "Rocky",
+        "This is Spinal Tap"];
+    
+    var Letter = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
+    
+    // Creating variables to hold the number of wins, losses, and ties. They start at 0.
+    var wins = 0;
+    var losses = 0;
+    var remainingLetters = word.length;
+            
+    //The playing loop
+    while (remainingLetters > 0) {
+        //Show players progress
+        alert("This is the number of remaining letters:\n" + answer.join(" "));
+ 
+    // This function is run whenever the user presses a key.
+    document.onkeyup = function(event) {
+
+        // Determines which key was pressed.
+        var userGuess = event.key;
+
+        // Captures the key press, converts it to lowercase, and saves it to a variable.
+        var letter = event.key.toLowerCase();
+        
+        // Randomly chooses a choice from the options array. This is the Computer's guess.
+        var movie = movies[Math.floor(Math.random() * movies.length)];    
+        
+        // Display the length of the word to the user using underscores
+        var answer = [];
+        for (var i = 0; i < movie.length; i++) {
+            answer[i] = "_";
+        }
+               //Prompt player to guess
+                var guess = prompt("Guess a letter or click 'Cancel' to stop the game.");
+                if (prompt === null) {
+                    //Leave the game
+                    break;
+                } else if (guess.length !== 1) {
+                    alert("Please enter one single letter.");
+                } else {
+                    //Update match with guess
+                    for (var j = 0; j < movie.length; j++) {
+                        if (movie[j] === guess) {
+                            answer[j] = guess;
+                            remainingLetters--;
+                        }
+                    }
+                }
+                //End of playing loop
+            }
+            
+            //Show answer and congratulate the player
+            alert(answer.join(" "));
+            alert("Good work! The right answer is " + movie);
+
+    </script>
+    
+        </body>
 </html>

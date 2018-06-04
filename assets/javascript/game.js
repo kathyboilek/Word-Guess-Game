@@ -1,280 +1,49 @@
-// global variables
-var winCount = 0;
-var loseCount = 0;
-var timeOut;
+// VARIABLES
 
-// Word-Guess-Game Object
-var movies = {
-    words: ['King Kong',
-    'Sunset Boulevard',
-    'The Searchers',
-    'Dr Strangelove',
-    'The Graduate',
-    'Jaws',
-    'Rocky',
-    'This is Spinal Tap'],
-    
-    letters: ['A', 'B', 'C', 'D', 'E',
-        'F', 'G', 'H', 'I', 'J', 'K',
-        'L', 'M', 'N', 'O', 'P', 'Q',
-        'R', 'S', 'T', 'U', 'V', 'W',
-        'X', 'Y', 'Z'],
-    movies: 10,
-    userInputs: [],
-    userInput: "",
-    computerWord: "",
-    wordWithMatchedLetters: "",
-    computerWordLength: 0,
-    matchedLettersCount: 0,
-    gameOver: false,
-    winOrLose: false,
+// The array of movie names for the game.
+var movies = ["King Kong",
+    "Sunset Boulevard",
+    "The Searchers",
+    "Dr Strangelove",
+    "The Graduate",
+    "Jaws",
+    "Rocky",
+    "This is Spinal Tap"];
 
-    // Declare movie properties
-    // function () {
-    //     this.movies = 10;
-    //     this.userInputs = [];
-    //     this.matchedLettersCount = 0;
-    //     this.userInput = "";
-    //     this.wordWithMatchedLetters = "";
-    //     this.gameOver = false;
-    //     this.winOrLose = false;
-    //     this.computerWord = this.guessAWord();
-    //     this.computerWordLength = this.calculateWordLength();
+var remainingLetters = word.length;
+        
+//The playing loop
+while (remainingLetters > 0) {
+    //Show players progress
+    alert("This is the number of remaining letters:\n" + answer.join(" "));
 
-        // var initialWordToPrint = this.createInitialWordToPrint();
-        // this.printWord(initialWordToPrint);
+// Randomly select the word and store it in a variable
+var movie = movies[Math.floor(Math.random() * movies.length)];    
 
-        // set elements
-        document.querySelector("#loadingMessage").innerHTML = "";
-        document.querySelector("#movies").innerHTML = this.movies;
-        document.querySelector("#winCount").innerHTML = winCount;
-        document.querySelector("#loseCount").innerHTML = loseCount;
-        document.querySelector("#winLose").style.display = 'inline-block';
-        document.querySelector("#movie-img").src = 'assets/images/animals.png';
-    },
-
-    // proceed to movie rules if user input is an alphabet
-    function startGame() {
-        if (this.gameOver === false && this.isAlphabet()) {
-            this.checkRules();
-        }
-    },
-
-    // validate against game rules
-    function checkLetter() {
-        // if letter is not tried
-        if (!this.checkLetterAlreadyTried()) { 
-            this.disableLetterBtn();
-            this.pushToTriedValues(); 
-            // array for tried values
-            //this.printUserTriedInputs(); 
-            // print user input
-
-            // if user entered letter is not in the word
-            if (!this.checkWordContainsUserInput()) { 
-                this.printmoviesLeft();
-                this.showmovieImage();
-                //if movies zero set audio and winCount
-                this.winLoseCountAndAudioOnGameEnd();                
-                this.startNewOnGameOver();
-            // if user entered letter is in the word
-            } else { 
-                this.createWordWithMatchedLetters();
-                // if user answer is correct
-                this.winLoseCountAndAudioOnGameEnd(); 
-                this.startNewOnGameOver();
-                document.querySelector("#word").innerHTML = this.wordWithMatchedLetters;
-            }
-        }
-    },
-
-    // generate word randomly   
-    guessWord: function() {
-        var computerRandomNumber = Math.floor(Math.random() * this.words.length);
-        return this.words[computerRandomNumber];
-        console.log(this.computerWord);
-    },
-
-    //calculate word length
-    calculateWordLength: function() {
-        return this.computerWord.length;
-    },
-
-    // create string with all dashes to print on initial load
-    createInitialWordToPrint: function() {
-        var word = "";
-        for (var i = 0; i < this.computerWordLength; i++) {
-            word += '_ ';
-        }
-        this.wordWithMatchedLetters = word;
-        return word;
-    },
-
-    // check to see if user already tried the input
-    checkInputAlreadyTried: function() {
-        if (this.userInputs.length !== 0) {
-            var result = this.userInputs.indexOf(this.userInput) < 0 ? false : true;
-            return result;
-        } else {
-            return false;
-        }
-    },
-
-    // array for tried values
-    pushToTriedValues: function() {
-        this.userInputs.push(this.userInput);
-    },
-
-    //check if input is a letter
-    isAlphabet: function() {
-        var pattern = /[a-z]/i;
-        return this.userInput.match(pattern);
-    },
-
-    //check if word contains the letter user entered
-    checkWordContainsUserInput: function() {
-        var contains = false;
-        for (var i = 0; i < this.computerWordLength; i++) {
-            if (this.computerWord.charAt(i).toUpperCase() == this.userInput) {
-                contains = true;
-            }
-        }
-        return contains;
-    },
-
-    //replace dashes with letters
-    createWordWithMatchedLetters: function() {
-        for (var i = 0; i < this.computerWordLength; i++) {
-            if (this.computerWord.charAt(i).toUpperCase() == this.userInput) {
-                if (i === 0) {
-                    this.wordWithMatchedLetters = this.wordWithMatchedLetters.substring(0, i * 2) +
-                        this.userInput.toUpperCase() + this.wordWithMatchedLetters.substring((i * 2 + 1));
-                } else {
-                    this.wordWithMatchedLetters = this.wordWithMatchedLetters.substring(0, i * 2) +
-                        this.userInput.toLowerCase() + this.wordWithMatchedLetters.substring((i * 2 + 1));
-                }
-                this.matchedLettersCount++;
-            }
-        }
-    },
-
-    // print word
-    printWord: function(word) {
-        document.querySelector("#word").innerHTML = word;
-    },
-
-    // print user tried letters
-    /*printUserTriedInputs: function() {
-        var triedInputs = "";
-        for (var i = 0; i < this.userInputs.length; i++) {
-            triedInputs += " " + movie.userInputs[i] + " ";
-        }
-        document.querySelector("#userInputs").innerHTML = triedInputs;
-    },*/
-
-    // print number of movies left
-    printmoviesLeft: function() {
-        this.movies--;
-        document.querySelector("#movies").innerHTML = this.movies;
-    },
-
-    // increment win/lose count by one and play audio 
-    winLoseCountAndAudioOnGameEnd: function() {
-        if (this.movies === 0) {
-            this.playAudio('assets/sounds/gameLost.mp3');
-            loseCount++;
-            this.gameOver = true;
-            this.winOrLose = false;
-        }
-
-        if (this.matchedLettersCount == this.computerWordLength) {
-            this.playAudio('assets/sounds/gameWon.mp3');
-            winCount++;
-            this.winOrLose = true;
-            this.gameOver = true;
-        }
-    },
-
-    // starts new game
-    startNewOnGameOver: function() {
-        if (this.gameOver === true) {
-            var html = "";
-            document.querySelector("#winLose").style.display = 'none';
-
-            if (this.winOrLose) {
-                html += '<div class="message">You Won!!!</div>';
-            } else {
-                html += '<div class="message">You Lost!!!</div>';
-            }
-            html += '<div class="load">New Word will load. ';
-            html += ' <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> </div>';
-
-            document.querySelector("#loadingMessage").innerHTML = html;
-            timeOut = setTimeout(this.loadGame.bind(this), 4000);
-        }
-    },
-
-    // load new game
-    loadGame: function() {
-        var t = this;
-        for (var i = 0; i < this.letters.length; i++) {
-            var id = "#li-" + this.letters[i];
-            document.querySelector(id).className = "liActive";
-        };
-        this.init();
-    },
-
-    // play audio
-    playAudio: function(gameAudio) {
-        var audio = new Audio(gameAudio);
-        audio.play();
-        audio.volume = .5;
-    },
-
-    // shows movie images
-    showmovieImage: function() {
-        if (this.movies != 10) {
-            document.querySelector("#movie-img").src = "assets/images/movie-" + (9 - this.movies) + ".png";
-        } else {
-            document.querySelector("#movie-img").src = "assets/images/";
-        }
-    },
-
-    // when user clicks letter Buttons 
-    letterClick: function(letter) {
-        this.userInput = letter.toUpperCase();
-        this.disableLetterBtn();
-        this.startGmae();
-    },
-
-    // disables letters that user has entered
-    disableLetterBtn: function() {
-        var id = "#li-" + this.userInput;
-        document.querySelector(id).className = "liDisabled"
-    },
-
-    // add letter buttons/key board
-    addLetterButtons: function() {
-        // add letter buttons
-        var html = "<ul>";
-        for (var i = 0; i < this.letters.length; i++) {
-            html += '<li id="li-' + this.letters[i] + '" class="liActive"';
-            html += 'onclick="movie.letterClick(\'' + this.letters[i] + '\')">';
-            html += this.letters[i] + "</li>";
-        };
-        html += "</ul>";
-        document.querySelector("#letterBtn").innerHTML = html;
-    },
-
+// Display the length of the word to the user using underscores
+var answer = [];
+for (var i = 0; i < movie.length; i++) {
+    answer[i] = "_";
 }
-
-// event listener
-window.onload = function(event) {
-        movie.addLetterButtons();
-        movie.init();
-
-        document.onkeyup = function(e) {
-            movie.userInput = String.fromCharCode(e.keyCode).toUpperCase();
-            movie.startGmae();
-        }        
-    } //End window onload
+           //Prompt player to guess
+            var guess = prompt("Guess a letter or click 'Cancel' to stop the game.");
+            if (prompt === null) {
+                //Leave the game
+                break;
+            } else if (guess.length !== 1) {
+                alert("Please enter one single letter.");
+            } else {
+                //Update match with guess
+                for (var j = 0; j < movie.length; j++) {
+                    if (movie[j] === guess) {
+                        answer[j] = guess;
+                        remainingLetters--;
+                    }
+                }
+            }
+            //End of playing loop
+        }
+        
+        //Show answer and congratulate the player
+        alert(answer.join(" "));
+        alert("Good work! The right answer is " + movie);
