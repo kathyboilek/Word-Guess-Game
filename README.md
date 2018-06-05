@@ -3,7 +3,7 @@ Similar to Hang Man
 Theme:  10 Must See Movies
 Psuedo Code for game:
 
- Loop through the selected array of words
+ Loop through the selected array of movies
     King Kong
     Sunset Boulevard
     The Searchers

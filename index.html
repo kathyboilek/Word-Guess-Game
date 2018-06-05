@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
     <title>Word-Guess-Game</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    
 </head>
 
 <body>
@@ -13,74 +16,12 @@
         <h1>TCM's 10 Must See Movies</h1>
         </header>
     </div>
+    <div id="game">
 
-    <script type="text/javascript">
 
-    // VARIABLES
+    </div>
 
-    // The array of movie names for the game.
-    var movies = ["King Kong",
-        "Sunset Boulevard",
-        "The Searchers",
-        "Dr Strangelove",
-        "The Graduate",
-        "Jaws",
-        "Rocky",
-        "This is Spinal Tap"];
-    
-    var Letter = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
-    
-    // Creating variables to hold the number of wins, losses, and ties. They start at 0.
-    var wins = 0;
-    var losses = 0;
-    var remainingLetters = word.length;
-            
-    //The playing loop
-    while (remainingLetters > 0) {
-        //Show players progress
-        alert("This is the number of remaining letters:\n" + answer.join(" "));
- 
-    // This function is run whenever the user presses a key.
-    document.onkeyup = function(event) {
+    <script src="assets/javascript/game.js"></script>
 
-        // Determines which key was pressed.
-        var userGuess = event.key;
-
-        // Captures the key press, converts it to lowercase, and saves it to a variable.
-        var letter = event.key.toLowerCase();
-        
-        // Randomly chooses a choice from the options array. This is the Computer's guess.
-        var movie = movies[Math.floor(Math.random() * movies.length)];    
-        
-        // Display the length of the word to the user using underscores
-        var answer = [];
-        for (var i = 0; i < movie.length; i++) {
-            answer[i] = "_";
-        }
-               //Prompt player to guess
-                var guess = prompt("Guess a letter or click 'Cancel' to stop the game.");
-                if (prompt === null) {
-                    //Leave the game
-                    break;
-                } else if (guess.length !== 1) {
-                    alert("Please enter one single letter.");
-                } else {
-                    //Update match with guess
-                    for (var j = 0; j < movie.length; j++) {
-                        if (movie[j] === guess) {
-                            answer[j] = guess;
-                            remainingLetters--;
-                        }
-                    }
-                }
-                //End of playing loop
-            }
-            
-            //Show answer and congratulate the player
-            alert(answer.join(" "));
-            alert("Good work! The right answer is " + movie);
-
-    </script>
-    
-        </body>
+</body>
 </html>
