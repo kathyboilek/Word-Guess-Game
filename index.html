@@ -1,34 +1,53 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-    <title>Word-Guess-Game</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+	<head>
+    	<meta charset="UTF-8">
+     	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+		<!-- CSS from FontAwesome and Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		
+		<!-- Title displayed on tab. -->
+		<title>TCM's 10 Must See Movies</title>
+	</head>
 
-    
-</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<img style="padding-bottom: 25px" class="img-responsive center-block" src="assets/images/tcm-logo-3581046A26-seeklogo.com.png" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 col-sm-offset-3 box">
+					<img class="img-responsive center-block" src="assets/images/Capture.PNG">
+				</div>
+				<!--Game information section-->
+				<div class="col-sm-3 box">
+					<p style="margin-top: 45px" id="num-wins">Press space to get started!</p>
 
-<body>
-    <div class="container">
-        <!--  header -->
-        <header>
-        <h1>TCM's 10 Must See Movies</h1>
-        </header>
+					<p>Current movie:<br>
+					<span style="color: #e7e466; font-weight: bold" id="current-word">What could it be?</span></p>
 
-        <p id="num-wins">Press space to get started!</p>
+					<p>Guesses Remaining: <br>
+					<span style="color: #e7e466; font-weight: bold"  id="guesses-remaining">15</span></p>
 
-        <p>Current word:</p>
-        <p id="current-word">What could it be?</p>
+					<p>Letters already guessed:<br>
+					<span style="color: #e7e466; font-weight: bold"  id="letters-guessed">None so far</span></p>
+				</div>
+			</div>
+		</div>
 
-        <p>Guesses Remaining: </p>
-        <p id="guesses-remaining">15</p>
 
-        <P>Letters already guessed:</P>
-        <p id="letters-guessed">None so far</p>
-    </div>
 
 	<!-- Loads the javascript component of the game -->
-	<script src="assets/javascript/game2.js" type="text/javascript"></script>
-</body>
+	<script src="assets/javascript/game.js" type="text/javascript"></script>
+	<!-- Loads jquery -->
+	<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+
+
+	</body>
 </html>
